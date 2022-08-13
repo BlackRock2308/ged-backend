@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  db:
+    container_name: ged_project
+    image: postgres:14.4
+    ports:
+      - 5436:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ged_db
