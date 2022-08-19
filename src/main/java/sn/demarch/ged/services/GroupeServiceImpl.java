@@ -9,6 +9,7 @@ import sn.demarch.ged.repositories.UserRepository;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
+import java.util.Set;
 
 @AllArgsConstructor
 @Service("groupeService")
@@ -43,8 +44,22 @@ public class GroupeServiceImpl implements GroupeService{
         return groupeRepository.save(existingGroupe);
     }
 
+    //Remove Groupe to User
     @Override
-    public void addUserToGroupe(User use) {
+    public void assignUserGroupe(String IdGroupe, String matricule){
+        User user  = userRepository.findById(matricule).orElse(null);
+        Groupe groupe = groupeRepository.findById(IdGroupe).orElse(null);
+        Set<Groupe> userGroupes = user.getGroupes();
+        userGroupes.add(groupe);
+        user.setGroupes(userGroupes);
+        userRepository.save(user);
+    }
 
+    //Revove Groupe to User
+    @Override
+    public void unassignUserGroupe(String matricule, String idGroupe){
+        User user  = userRepository.findById(matricule).orElse(null);
+        user.getGroupes().removeIf(x -> x.getIdGroupe()==idGroupe);
+        userRepository.save(user);
     }
 }

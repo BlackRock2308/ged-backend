@@ -2,6 +2,7 @@ package sn.demarch.ged.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -16,6 +17,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Groupe implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -27,41 +29,6 @@ public class Groupe implements Serializable {
     private String description;
 
 
-    @OneToMany(
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL,
-            mappedBy = "idGroupe")
-    private Set<User_Groupe> user_groupes = new HashSet<>();
 
-    public String getIdGroupe() {
-        return idGroupe;
-    }
 
-    public void setIdGroupe(String idGroupe) {
-        this.idGroupe = idGroupe;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Set<User_Groupe> getUser_groupes() {
-        return user_groupes;
-    }
-    @JsonIgnore
-    public void setUser_groupes(Set<User_Groupe> user_groupes) {
-        this.user_groupes = user_groupes;
-    }
 }

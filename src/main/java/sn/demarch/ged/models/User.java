@@ -1,10 +1,7 @@
 package sn.demarch.ged.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -24,6 +21,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class User implements Serializable {
 
     @Id
@@ -41,58 +39,13 @@ public class User implements Serializable {
     private String password;
 
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            mappedBy = "matricule")
-    private Set<User_Groupe> user_groupes = new HashSet<>();
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_groupe",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "groupe_id")}
+    )
+    Set<Groupe> groupes = new HashSet<>();
 
 
-    public String getMatricule() {
-        return matricule;
-    }
-
-    public void setMatricule(String matricule) {
-        this.matricule = matricule;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<User_Groupe> getUser_groupes() {
-        return user_groupes;
-    }
-
-    @JsonIgnore
-    public void setUser_groupes(Set<User_Groupe> user_groupes) {
-        this.user_groupes = user_groupes;
-    }
 }

@@ -14,5 +14,7 @@ public interface GroupeService {
     public Optional<Groupe> getOneGroupe(String id);
     public Groupe updateGroupe(Groupe groupe);
 
-    public void addUserToGroupe(User user);
+    public void assignUserGroupe(String matricule, String idGroupe);
+
+    public void unassignUserGroupe(String matricule, String idGroupe);
 }

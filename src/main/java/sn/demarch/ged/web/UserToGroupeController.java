@@ -70,4 +70,8 @@ public class UserToGroupeController {
         return new ResponseEntity<>(updateUserToGroupe, HttpStatus.OK);
     }
 
+    //************************ Assign user to Groupe ****************************************
+
+
+
 }
