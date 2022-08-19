@@ -33,6 +33,9 @@ public class Groupe implements Serializable {
             mappedBy = "idGroupe")
     private Set<User_Groupe> user_groupes = new HashSet<>();
 
+    @ManyToMany()
+    private Set<User> users= new HashSet<>();
+
     public String getIdGroupe() {
         return idGroupe;
     }
@@ -60,8 +63,18 @@ public class Groupe implements Serializable {
     public Set<User_Groupe> getUser_groupes() {
         return user_groupes;
     }
+
     @JsonIgnore
     public void setUser_groupes(Set<User_Groupe> user_groupes) {
         this.user_groupes = user_groupes;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }

@@ -2,6 +2,8 @@ package sn.demarch.ged.services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import sn.demarch.ged.models.Groupe;
+import sn.demarch.ged.models.User;
 import sn.demarch.ged.models.User_Groupe;
 import sn.demarch.ged.repositories.GroupeRepository;
 import sn.demarch.ged.repositories.UserRepository;
@@ -9,6 +11,7 @@ import sn.demarch.ged.repositories.UserToGroupeRepository;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
+import java.util.Set;
 
 @AllArgsConstructor
 @Service("userToGroupeService")
@@ -26,9 +29,14 @@ public class UserToGroupeImpl implements UserToGroupeService{
 
     @Override
     public User_Groupe saveUserToGroupe(User_Groupe user_groupe) {
-        user_groupe.setGroupe(groupeRepository.findById(user_groupe.getIdGroupe()).get());
-        user_groupe.setUser(userRepository.findById(user_groupe.getMatricule()).get());
-
+        //user_groupe.setGroupe((Set<Groupe>) groupeRepository.findById(user_groupe.getIdGroupe()).get());
+        //user_groupe.setUser((Set<User>) userRepository.findById(user_groupe.getMatricule()).get());
+        User user  = userRepository.findById(user_groupe.getMatricule()).get();
+        Groupe groupe = groupeRepository.findById(user_groupe.getIdGroupe()).get();
+        Set<User> userGroupes = groupe.getUsers();
+        userGroupes.add(user);
+        groupe.setUsers(userGroupes);
+        groupeRepository.save(groupe);
         return userToGroupeRepository.save(user_groupe);
     }
 

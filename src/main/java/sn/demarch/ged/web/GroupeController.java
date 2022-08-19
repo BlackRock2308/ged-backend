@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sn.demarch.ged.models.Groupe;
+import sn.demarch.ged.models.User_Groupe;
 import sn.demarch.ged.repositories.GroupeRepository;
 import sn.demarch.ged.services.GroupeService;
 
@@ -68,5 +69,14 @@ public class GroupeController {
 
         Groupe updateGroupe = groupeService.updateGroupe(groupe);
         return new ResponseEntity<>(updateGroupe, HttpStatus.OK);
+    }
+
+    //************************ add User to groupe ****************************************
+
+    @PostMapping("/assign")
+    public ResponseEntity<User_Groupe> saveUserToGroupe(@RequestBody User_Groupe userToGroupe){
+        User_Groupe savedUserGroupe = groupeService.saveUserToGroupe(userToGroupe);
+        groupeService.saveUserToGroupe(savedUserGroupe);
+        return ResponseEntity.status(HttpStatus.OK).body(savedUserGroupe);
     }
 }

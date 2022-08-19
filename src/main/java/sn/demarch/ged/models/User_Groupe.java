@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -23,13 +24,13 @@ public class User_Groupe implements Serializable {
     private String matricule;
     private String idGroupe;
 
-    @ManyToOne(
+    @ManyToMany(
             fetch = FetchType.EAGER)
     @JoinColumn(name="matricule", nullable = false, updatable = false, insertable = false)
-    private User user;
+    private Set<User> user;
 
-    @ManyToOne(
+    @ManyToMany(
             fetch = FetchType.EAGER)
     @JoinColumn(name="idGroupe", nullable = false, updatable = false, insertable = false)
-    private Groupe groupe;
+    private Set<Groupe> groupe;
 }

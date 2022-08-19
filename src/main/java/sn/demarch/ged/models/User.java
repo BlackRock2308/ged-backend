@@ -1,10 +1,7 @@
 package sn.demarch.ged.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -46,6 +43,8 @@ public class User implements Serializable {
             mappedBy = "matricule")
     private Set<User_Groupe> user_groupes = new HashSet<>();
 
+    @ManyToMany()
+    private Set<Groupe> groupes = new HashSet<>();
 
     public String getMatricule() {
         return matricule;
@@ -90,9 +89,17 @@ public class User implements Serializable {
     public Set<User_Groupe> getUser_groupes() {
         return user_groupes;
     }
-
     @JsonIgnore
     public void setUser_groupes(Set<User_Groupe> user_groupes) {
         this.user_groupes = user_groupes;
+    }
+
+    public Set<Groupe> getGroupes() {
+        return groupes;
+    }
+
+    @JsonIgnore
+    public void setGroupes(Set<Groupe> groupes) {
+        this.groupes = groupes;
     }
 }
