@@ -5,8 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sn.demarch.ged.models.Groupe;
+import sn.demarch.ged.models.User;
 import sn.demarch.ged.repositories.GroupeRepository;
 import sn.demarch.ged.services.GroupeService;
+import sn.demarch.ged.services.UserService;
 
 import java.util.Optional;
 
@@ -18,6 +20,8 @@ public class GroupeController {
 
     private final GroupeService groupeService;
     private final GroupeRepository groupeRepository;
+
+    private final UserService userService;
 
     //************************ add groupe ****************************************
 
@@ -59,6 +63,29 @@ public class GroupeController {
         }
         groupeRepository.delete(optionalGroupe.get());
         return ResponseEntity.status(HttpStatus.OK).body(optionalGroupe.get());
+    }
+    //************************ assigne groupe ****************************************
+
+    @PostMapping("/assign/{matricule}/{idGroupe}")
+    public ResponseEntity assignGroupe(@PathVariable String matricule,
+                             @PathVariable String idGroupe){
+        Optional<Groupe> optionalGroupe= groupeService.getOneGroupe(idGroupe);
+        Optional<User> optionalUser= userService.getOneUser(matricule);
+
+
+        if(!optionalGroupe.isPresent()){
+            System.out.println("This groupe is not present");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        if(!optionalUser.isPresent()){
+            System.out.println("This User is not present");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        groupeService.assignUserGroupe(matricule, idGroupe);
+
+        return ResponseEntity.status(HttpStatus.OK).body(optionalGroupe.get());
+
     }
     //************************ Update groupe ****************************************
 

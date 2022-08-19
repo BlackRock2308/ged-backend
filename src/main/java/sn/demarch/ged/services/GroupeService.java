@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import sn.demarch.ged.models.Groupe;
 import sn.demarch.ged.models.User;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service("groupeService")
@@ -17,4 +18,6 @@ public interface GroupeService {
     public void assignUserGroupe(String matricule, String idGroupe);
 
     public void unassignUserGroupe(String matricule, String idGroupe);
+
+    public List<Groupe> getUserNotGroupes(User user);
 }

@@ -8,6 +8,7 @@ import sn.demarch.ged.repositories.GroupeRepository;
 import sn.demarch.ged.repositories.UserRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -46,7 +47,7 @@ public class GroupeServiceImpl implements GroupeService{
 
     //Remove Groupe to User
     @Override
-    public void assignUserGroupe(String IdGroupe, String matricule){
+    public void assignUserGroupe(String matricule,String IdGroupe){
         User user  = userRepository.findById(matricule).orElse(null);
         Groupe groupe = groupeRepository.findById(IdGroupe).orElse(null);
         Set<Groupe> userGroupes = user.getGroupes();
@@ -62,4 +63,11 @@ public class GroupeServiceImpl implements GroupeService{
         user.getGroupes().removeIf(x -> x.getIdGroupe()==idGroupe);
         userRepository.save(user);
     }
+
+    @Override
+    public List<Groupe> getUserNotGroupes(User user){
+        return groupeRepository.getUserNotGroupes(user.getMatricule());
+    }
+
+
 }

@@ -3,11 +3,13 @@ package sn.demarch.ged.services;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import sn.demarch.ged.models.Groupe;
 import sn.demarch.ged.models.User;
 import sn.demarch.ged.repositories.UserRepository;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
+import java.util.Set;
 
 @AllArgsConstructor
 @Service("userService")
@@ -48,6 +50,11 @@ public class UserServiceImpl implements UserService{
         existingUser.setPassword(user.getPassword());
 
         return userRepository.save(existingUser);
+    }
+
+    @Override
+    public Set<Groupe> getUserGroupes(User user){
+        return user.getGroupes();
     }
 
 
