@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sn.demarch.ged.models.UserToGroupe;
+import sn.demarch.ged.models.User_Groupe;
 import sn.demarch.ged.repositories.UserToGroupeRepository;
 import sn.demarch.ged.services.UserToGroupeService;
 
@@ -21,20 +21,20 @@ public class UserToGroupeController {
     private final UserToGroupeRepository userToGroupeRepository;
 
 
-    //************************ add groupe ****************************************
+    //************************ add User to groupe ****************************************
 
     @PostMapping
-    public ResponseEntity<UserToGroupe> saveUserToGroupe(@RequestBody UserToGroupe userToGroupe){
-        UserToGroupe savedUserGroupe = userToGroupeService.saveUserToGroupe(userToGroupe);
+    public ResponseEntity<User_Groupe> saveUserToGroupe(@RequestBody User_Groupe userToGroupe){
+        User_Groupe savedUserGroupe = userToGroupeService.saveUserToGroupe(userToGroupe);
         userToGroupeService.saveUserToGroupe(savedUserGroupe);
         return ResponseEntity.status(HttpStatus.OK).body(savedUserGroupe);
     }
 
-    //************************ get groupe by ID ****************************************
+    //************************ get usertogroupe by ID ****************************************
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserToGroupe> getUserById(@PathVariable String id) {
-        Optional<UserToGroupe> optionalUserGroupe = userToGroupeService.getOneUserToGroupe(id);
+    public ResponseEntity<User_Groupe> getUserById(@PathVariable String id) {
+        Optional<User_Groupe> optionalUserGroupe = userToGroupeService.getOneUserToGroupe(id);
         if(!optionalUserGroupe.isPresent()){
             return ResponseEntity.unprocessableEntity().build();
         }
@@ -44,7 +44,7 @@ public class UserToGroupeController {
     //************************ get All UsersTogroupes ****************************************
 
     @GetMapping
-    public Iterable<UserToGroupe> getAllUserToGroupe(){
+    public Iterable<User_Groupe> getAllUserToGroupe(){
         return userToGroupeService.getAllUserToGroupe();
     }
 
@@ -52,8 +52,8 @@ public class UserToGroupeController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<UserToGroupe> deleteGroupe(@PathVariable String id){
-        Optional<UserToGroupe> optionalUserToGroupe = userToGroupeService.getOneUserToGroupe(id);
+    public ResponseEntity<User_Groupe> deleteGroupe(@PathVariable String id){
+        Optional<User_Groupe> optionalUserToGroupe = userToGroupeService.getOneUserToGroupe(id);
         if(!optionalUserToGroupe.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -64,9 +64,9 @@ public class UserToGroupeController {
 
 
     @PutMapping
-    public ResponseEntity<UserToGroupe> updateUserToGroupe(@RequestBody UserToGroupe userToGroupe) {
+    public ResponseEntity<User_Groupe> updateUserToGroupe(@RequestBody User_Groupe userToGroupe) {
 
-        UserToGroupe updateUserToGroupe = userToGroupeService.updateUserTGroupe(userToGroupe);
+        User_Groupe updateUserToGroupe = userToGroupeService.updateUserTGroupe(userToGroupe);
         return new ResponseEntity<>(updateUserToGroupe, HttpStatus.OK);
     }
 

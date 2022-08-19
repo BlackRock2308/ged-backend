@@ -24,8 +24,6 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class User implements Serializable {
 
     @Id
@@ -42,25 +40,59 @@ public class User implements Serializable {
     @Size(max = 120)
     private String password;
 
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "matricule")
+    private Set<User_Groupe> user_groupes = new HashSet<>();
+
+
+    public String getMatricule() {
+        return matricule;
+    }
+
+    public void setMatricule(String matricule) {
+        this.matricule = matricule;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<User_Groupe> getUser_groupes() {
+        return user_groupes;
+    }
+
     @JsonIgnore
-    @OneToMany(mappedBy = "userMatricule", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<UserToGroupe> userToGroupeList;
-
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable( name = "T_Users_Groupes_Associations",
-            joinColumns = @JoinColumn( name = "user_matricule" ),
-            inverseJoinColumns = @JoinColumn( name = "id_groupe" ) )
-    private Set<Groupe> groupes = new HashSet<>();
-
-
-    /**
-    @ManyToMany
-    @JoinTable( name = "T_Users_Roles_Associations",
-            joinColumns = @JoinColumn( name = "user_matricule" ),
-            inverseJoinColumns = @JoinColumn( name = "id_role" ) )
-    private List<Role> roles = new ArrayList<>();
-**/
-
-
+    public void setUser_groupes(Set<User_Groupe> user_groupes) {
+        this.user_groupes = user_groupes;
+    }
 }

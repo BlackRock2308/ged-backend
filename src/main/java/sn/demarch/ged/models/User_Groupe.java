@@ -14,22 +14,22 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserToGroupe implements Serializable {
+public class User_Groupe implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid",strategy = "uuid2")
     private String id;
-    private String userMatricule;
-    private String groupeId;
+    private String matricule;
+    private String idGroupe;
 
     @ManyToOne(
             fetch = FetchType.EAGER)
-    @JoinColumn(name="userMatricule", nullable = false, updatable = false, insertable = false)
+    @JoinColumn(name="matricule", nullable = false, updatable = false, insertable = false)
     private User user;
 
     @ManyToOne(
             fetch = FetchType.EAGER)
-    @JoinColumn(name="groupeId", nullable = false, updatable = false, insertable = false)
+    @JoinColumn(name="idGroupe", nullable = false, updatable = false, insertable = false)
     private Groupe groupe;
 }

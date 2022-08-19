@@ -2,8 +2,7 @@ package sn.demarch.ged.services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import sn.demarch.ged.models.Groupe;
-import sn.demarch.ged.models.UserToGroupe;
+import sn.demarch.ged.models.User_Groupe;
 import sn.demarch.ged.repositories.GroupeRepository;
 import sn.demarch.ged.repositories.UserRepository;
 import sn.demarch.ged.repositories.UserToGroupeRepository;
@@ -21,27 +20,27 @@ public class UserToGroupeImpl implements UserToGroupeService{
     private GroupeRepository groupeRepository;
 
     @Override
-    public Iterable<UserToGroupe> getAllUserToGroupe() {
+    public Iterable<User_Groupe> getAllUserToGroupe() {
         return userToGroupeRepository.findAll();
     }
 
     @Override
-    public UserToGroupe saveUserToGroupe(UserToGroupe userToGroupe) {
-        userToGroupe.setGroupe(groupeRepository.findById(userToGroupe.getGroupeId()).get());
-        userToGroupe.setUser(userRepository.findById(userToGroupe.getUserMatricule()).get());
+    public User_Groupe saveUserToGroupe(User_Groupe user_groupe) {
+        user_groupe.setGroupe(groupeRepository.findById(user_groupe.getIdGroupe()).get());
+        user_groupe.setUser(userRepository.findById(user_groupe.getMatricule()).get());
 
-        return userToGroupeRepository.save(userToGroupe);
+        return userToGroupeRepository.save(user_groupe);
     }
 
     @Override
-    public Optional<UserToGroupe> getOneUserToGroupe(String id) {
+    public Optional<User_Groupe> getOneUserToGroupe(String id) {
         return userToGroupeRepository.findById(id);
     }
     @Override
-    public UserToGroupe updateUserTGroupe(UserToGroupe userToGroupe) {
-        UserToGroupe existingUserToGroupe = userToGroupeRepository.findById(userToGroupe.getId()).orElse(null);
-        existingUserToGroupe.setUser(userToGroupe.getUser());
-        existingUserToGroupe.setGroupe(userToGroupe.getGroupe());
+    public User_Groupe updateUserTGroupe(User_Groupe user_groupe) {
+        User_Groupe existingUserToGroupe = userToGroupeRepository.findById(user_groupe.getId()).orElse(null);
+        existingUserToGroupe.setUser(user_groupe.getUser());
+        existingUserToGroupe.setGroupe(user_groupe.getGroupe());
         return userToGroupeRepository.save(existingUserToGroupe);
     }
 }

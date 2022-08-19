@@ -2,9 +2,7 @@ package sn.demarch.ged.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -18,8 +16,6 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class Groupe implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -30,16 +26,42 @@ public class Groupe implements Serializable {
     @NotBlank
     private String description;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "groupeId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<UserToGroupe> userToGroupeList = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "groupes")
-    private List<User> users = new ArrayList<>();
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            mappedBy = "idGroupe")
+    private Set<User_Groupe> user_groupes = new HashSet<>();
 
-
-    public void addUserToGroupe(User user) {
-        this.users.add(user);
+    public String getIdGroupe() {
+        return idGroupe;
     }
 
+    public void setIdGroupe(String idGroupe) {
+        this.idGroupe = idGroupe;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Set<User_Groupe> getUser_groupes() {
+        return user_groupes;
+    }
+    @JsonIgnore
+    public void setUser_groupes(Set<User_Groupe> user_groupes) {
+        this.user_groupes = user_groupes;
+    }
 }

@@ -1,15 +1,14 @@
 package sn.demarch.ged.services;
 
-import sn.demarch.ged.models.User;
-import sn.demarch.ged.models.UserToGroupe;
+import sn.demarch.ged.models.User_Groupe;
 
 import java.util.Optional;
 
 public interface UserToGroupeService {
 
 
-    public Iterable<UserToGroupe> getAllUserToGroupe();
-    public UserToGroupe saveUserToGroupe(UserToGroupe userToGroupe);
-    public Optional<UserToGroupe> getOneUserToGroupe(String id);
-    public UserToGroupe updateUserTGroupe(UserToGroupe userToGroupe);
+    public Iterable<User_Groupe> getAllUserToGroupe();
+    public User_Groupe saveUserToGroupe(User_Groupe userToGroupe);
+    public Optional<User_Groupe> getOneUserToGroupe(String id);
+    public User_Groupe updateUserTGroupe(User_Groupe userToGroupe);
 }
