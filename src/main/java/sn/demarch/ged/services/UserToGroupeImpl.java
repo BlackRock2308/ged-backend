@@ -29,8 +29,8 @@ public class UserToGroupeImpl implements UserToGroupeService{
 
     @Override
     public User_Groupe saveUserToGroupe(User_Groupe user_groupe) {
-        //user_groupe.setGroupe((Set<Groupe>) groupeRepository.findById(user_groupe.getIdGroupe()).get());
-        //user_groupe.setUser((Set<User>) userRepository.findById(user_groupe.getMatricule()).get());
+        user_groupe.setGroupe((Set<Groupe>) groupeRepository.findById(user_groupe.getIdGroupe()).get());
+        user_groupe.setUser((Set<User>) userRepository.findById(user_groupe.getMatricule()).get());
         User user  = userRepository.findById(user_groupe.getMatricule()).get();
         Groupe groupe = groupeRepository.findById(user_groupe.getIdGroupe()).get();
         Set<User> userGroupes = groupe.getUsers();
