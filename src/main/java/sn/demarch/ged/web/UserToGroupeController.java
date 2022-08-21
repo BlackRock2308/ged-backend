@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sn.demarch.ged.models.Groupe;
 import sn.demarch.ged.models.User_Groupe;
 import sn.demarch.ged.repositories.UserToGroupeRepository;
 import sn.demarch.ged.services.UserToGroupeService;
@@ -69,5 +70,22 @@ public class UserToGroupeController {
         User_Groupe updateUserToGroupe = userToGroupeService.updateUserTGroupe(userToGroupe);
         return new ResponseEntity<>(updateUserToGroupe, HttpStatus.OK);
     }
+
+    @PostMapping("/security/role/assign/{matricule}/{idGroupe}")
+    public String assignRole(@PathVariable String matricule,
+                             @PathVariable String idGroupe){
+        userToGroupeService.assignUserToGroupe(matricule, idGroupe);
+        return "matricule" + matricule;
+    }
+
+    @PostMapping("/security/role/unassign/{matricule}/{idGroupe}")
+    public String unAssignRole(@PathVariable String matricule,
+                             @PathVariable String idGroupe){
+        userToGroupeService.unAssignUsergroupe(matricule, idGroupe);
+        return "matricule" + matricule;
+
+    }
+
+
 
 }

@@ -5,6 +5,7 @@ import sn.demarch.ged.models.Groupe;
 import sn.demarch.ged.models.User;
 import sn.demarch.ged.models.User_Groupe;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service("groupeService")
@@ -18,4 +19,6 @@ public interface GroupeService {
     public void addUserToGroupe(User user);
 
     public User_Groupe saveUserToGroupe(User_Groupe user_groupe);
+
+    public List<User> getUserNotGroupes(Groupe groupe);
 }

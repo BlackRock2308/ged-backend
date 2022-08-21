@@ -10,6 +10,7 @@ import sn.demarch.ged.repositories.UserRepository;
 import sn.demarch.ged.repositories.UserToGroupeRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -62,5 +63,10 @@ public class GroupeServiceImpl implements GroupeService{
         groupe.setUsers(userGroupes);
         groupeRepository.save(groupe);
         return userToGroupeRepository.save(user_groupe);
+    }
+
+    @Override
+    public List<User> getUserNotGroupes(Groupe groupe){
+        return userRepository.getUserNotGroupes(groupe.getIdGroupe());
     }
 }

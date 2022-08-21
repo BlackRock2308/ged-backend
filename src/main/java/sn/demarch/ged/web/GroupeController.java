@@ -5,10 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sn.demarch.ged.models.Groupe;
+import sn.demarch.ged.models.User;
 import sn.demarch.ged.models.User_Groupe;
 import sn.demarch.ged.repositories.GroupeRepository;
 import sn.demarch.ged.services.GroupeService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin("*")
@@ -78,5 +81,13 @@ public class GroupeController {
         User_Groupe savedUserGroupe = groupeService.saveUserToGroupe(userToGroupe);
         groupeService.saveUserToGroupe(savedUserGroupe);
         return ResponseEntity.status(HttpStatus.OK).body(savedUserGroupe);
+    }
+
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<List<User>> getUserNotGroupe(@RequestBody Groupe groupe) {
+        List<User> users = groupeService.getUserNotGroupes(groupe);
+
+        return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 }

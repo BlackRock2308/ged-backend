@@ -51,4 +51,27 @@ public class UserToGroupeImpl implements UserToGroupeService{
         existingUserToGroupe.setGroupe(user_groupe.getGroupe());
         return userToGroupeRepository.save(existingUserToGroupe);
     }
+
+    @Override
+    public void assignUserToGroupe(String matricule, String idGroupe) {
+        User user  = userRepository.findById(matricule).orElse(null);
+        Groupe groupe = groupeRepository.findById(idGroupe).orElse(null);
+        Set<User> userGroupes = groupe.getUsers();
+        userGroupes.add(user);
+        groupe.setUsers(userGroupes);
+        userRepository.save(user);
+        groupeRepository.save(groupe);
+
+    }
+
+
+    @Override
+    public void unAssignUsergroupe(String matricule, String idGroupe){
+        User user  = userRepository.findById(matricule).orElse(null);
+        Groupe groupe = groupeRepository.findById(idGroupe).orElse(null);
+        Set<User> userGroupes = groupe.getUsers();
+        userGroupes.remove(user);
+        user.getGroupes().removeIf(x -> x.getIdGroupe()==idGroupe);
+        userRepository.save(user);
+    }
 }
